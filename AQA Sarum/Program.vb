@@ -27,11 +27,7 @@ Module CaptureTheSarrum
         Do
             whoseTurn = "W"
             gameOver = False
-            Console.Write("Do you want to play the sample game (enter Y for Yes)? ")
-            sampleGame = Console.ReadLine
-            If Asc(sampleGame) >= 97 And Asc(sampleGame) <= 122 Then
-                sampleGame = Chr(Asc(sampleGame) - 32)
-            End If
+            sampleGame = GetTypeOfGame()
             InitialiseBoard(board, sampleGame)
             Do
                 DisplayBoard(board)
