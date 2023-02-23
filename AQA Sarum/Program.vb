@@ -280,6 +280,8 @@ Module CaptureTheSarrum
             board(3, 2) = "BE"
             board(3, 8) = "BE"
             board(6, 8) = "BR"
+            board(1, 1) = "BK"
+            board(2, 4) = "WK"
         Else
             For rankNo = 1 To BoardDimension
                 For fileNo = 1 To BoardDimension
