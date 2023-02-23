@@ -320,14 +320,30 @@ Module CaptureTheSarrum
     Private Sub MakeMove(ByRef board(,) As String, startRank As Integer, startFile As Integer, finishRank As Integer,
                          finishFile As Integer, whoseTurn As Char)
         If whoseTurn = "W" And finishRank = 1 And board(startRank, startFile)(1) = "R" Then
-            board(finishRank, finishFile) = "WM"
+            board(finishRank, finishFile) = "W" & ChoosePiece()
             board(startRank, startFile) = "  "
         ElseIf whoseTurn = "B" And finishRank = 8 And board(startRank, startFile)(1) = "R" Then
-            board(finishRank, finishFile) = "BM"
+            board(finishRank, finishFile) = "B" & ChoosePiece()
             board(startRank, startFile) = "  "
         Else
             board(finishRank, finishFile) = board(startRank, startFile)
             board(startRank, startFile) = "  "
         End If
     End Sub
+    
+    Private Function ChoosePiece() As Char
+        Dim piece As Char
+        Dim choiceValid = False
+        
+        Do Until choiceValid
+            Console.Write("Choose which piece to convert to: ")
+            piece = Char.ToUpper(Console.ReadLine)
+            
+            If piece = "S" Or piece = "M" Or piece = "N" Or piece = "E" Or piece = "G" Or piece = "R" Then
+                choiceValid = True
+            End If
+        Loop
+        
+        Return piece
+    End Function
 End Module
