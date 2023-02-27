@@ -219,6 +219,58 @@ Module CaptureTheSarrum
         End If
         Return False
     End Function
+    
+    Private Function CheckKashaptuMoveIsLegal(board(,) As String, startRank As Integer, startFile As Integer,
+                                              finishRank As Integer, finishFile As Integer, colourOfPiece As Char) As Boolean
+        ' Check move is horizontal, vertical, or diagonal
+        If Not (Math.Abs(finishFile - startFile) = Math.Abs(finishRank - startRank) Or Math.Abs(finishFile - startFile) = 0 Or Math.Abs(finishRank - startRank) = 0) Then
+            Return False
+        End If
+        
+        ' Check for obstructions
+        If Math.Abs(finishFile - startFile) = Math.Abs(finishRank - startRank) Then ' Diagonal
+            Dim rankDifference = 1
+            Dim currentRank = startRank
+            
+            If startRank > finishRank Then
+                rankDifference = -1
+            End If
+            
+            If finishFile > startFile Then ' Top Right
+                For currentFile = startFile to finishFile
+                    If Not board(currentRank, currentFile) = "  " And Not board(currentRank, currentFile) = colourOfPiece & "K" Then Return False
+                    currentRank += rankDifference
+                Next
+            ElseIf finishFile < startFile Then ' Top Left
+                For currentFile = finishFile To startFile Step -1
+                    If Not board(currentRank, currentFile) = "  " And Not board(currentRank, currentFile) = colourOfPiece & "K" Then Return False
+                    currentRank += rankDifference
+                Next
+            End If
+        ElseIf Math.Abs(finishFile - startFile) = 0 Then ' Vertical
+            If finishFile > startFile Then
+                For i = startFile To finishFile 
+                    If Not board(startRank, i) = "  " And Not board(startRank, i)(1) = "K" Then Return False
+                Next
+            Else 
+                For i = finishFile To startFile Step -1
+                    If Not board(startRank, i) = "  " And Not board(startRank, i)(1) = "K" Then Return False
+                Next
+            End If
+        ElseIf Math.Abs(finishRank - startRank) = 0 Then ' Horizontal
+            If finishRank > startRank Then
+                For i = startRank To finishRank
+                    If Not board(i, startFile) = "  " And Not board(startRank, i)(1) = "K" Then Return False
+                Next
+            Else 
+                For i = finishRank To startRank Step -1
+                    If Not board(i, startFile) = "  " And Not board(startRank, i)(1) = "K" Then Return False
+                Next
+            End If
+        End If
+        
+        Return True
+    End Function
 
     Private Function CheckMoveIsLegal(board(,) As String, startRank As Integer, startFile As Integer,
                                       finishRank As Integer,
@@ -258,6 +310,8 @@ Module CaptureTheSarrum
                 Return CheckNabuMoveIsLegal(board, startRank, startFile, finishRank, finishFile)
             Case "E"
                 Return CheckEtluMoveIsLegal(board, startRank, startFile, finishRank, finishFile)
+            Case "K"
+                Return CheckKashaptuMoveIsLegal(board, startRank, startFile, finishRank, finishFile, pieceColour)
             Case Else
                 Return False
         End Select
@@ -341,7 +395,7 @@ Module CaptureTheSarrum
             Console.Write("Choose which piece to convert to: ")
             piece = Char.ToUpper(Console.ReadLine)
             
-            If piece = "S" Or piece = "M" Or piece = "N" Or piece = "E" Or piece = "G" Or piece = "R" Then
+            If piece = "S" Or piece = "M" Or piece = "N" Or piece = "E" Or piece = "G" Or piece = "R" Or piece = "K" Then
                 choiceValid = True
             End If
         Loop
