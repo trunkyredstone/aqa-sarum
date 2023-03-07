@@ -17,6 +17,7 @@ Module CaptureTheSarrum
         Dim startFile As Integer
         Dim finishRank As Integer
         Dim finishFile As Integer
+        Dim piecesTaken As Integer
         Dim moveIsLegal As Boolean
         Dim playAgain As Char
         Dim sampleGame As Char
@@ -41,6 +42,9 @@ Module CaptureTheSarrum
                     End If
                 Loop Until moveIsLegal
                 gameOver = CheckIfGameWillBeWon(board, finishRank, finishFile)
+                If CheckIfPieceWillBeTaken(board, finishRank, finishFile) Then
+                    piecesTaken += 1
+                End If
                 MakeMove(board, startRank, startFile, finishRank, finishFile, whoseTurn)
                 If gameOver Then
                     DisplayWinner(whoseTurn)
@@ -89,6 +93,10 @@ Module CaptureTheSarrum
         Else
             Return False
         End If
+    End Function
+    
+    Private Function CheckIfPieceWillBeTaken(board(,) As String, finishRank As Integer, finishFile As Integer) As Boolean
+        Return Not board(finishRank, finishFile)(1) = " "
     End Function
 
     Private Sub DisplayBoard(board(,) As String)
