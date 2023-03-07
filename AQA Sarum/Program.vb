@@ -30,6 +30,7 @@ Module CaptureTheSarrum
             Do
                 DisplayBoard(board)
                 DisplayWhoseTurnItIs(whoseTurn)
+                Console.WriteLine($"You've taken {piecesTaken} pieces")
                 Do
                     GetMove(startSquare, finishSquare)
                     startRank = startSquare Mod 10
