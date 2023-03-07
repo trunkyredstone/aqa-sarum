@@ -203,16 +203,6 @@ Module CaptureTheSarrum
         Return False
     End Function
 
-    Private Function CheckMarzazPaniMoveIsLegal(startRank As Integer, startFile As Integer,
-                                                finishRank As Integer, finishFile As Integer) As Boolean
-        If _
-            Math.Abs(finishFile - startFile) = 1 And Math.Abs(finishRank - startRank) = 0 Or
-            Math.Abs(finishFile - startFile) = 0 And Math.Abs(finishRank - startRank) = 1 Then
-            Return True
-        End If
-        Return False
-    End Function
-
     Private Function CheckEtluMoveIsLegal(startRank As Integer, startFile As Integer,
                                           finishRank As Integer,
                                           finishFile As Integer) As Boolean
@@ -306,8 +296,6 @@ Module CaptureTheSarrum
                 Return CheckRedumMoveIsLegal(board, startRank, startFile, finishRank, finishFile, pieceColour)
             Case "S"
                 Return CheckSarrumMoveIsLegal(startRank, startFile, finishRank, finishFile)
-            Case "M"
-                Return CheckMarzazPaniMoveIsLegal(startRank, startFile, finishRank, finishFile)
             Case "G"
                 Return CheckGisgigirMoveIsLegal(board, startRank, startFile, finishRank, finishFile)
             Case "N"
@@ -358,7 +346,7 @@ Module CaptureTheSarrum
                             Case 3, 6
                                 board(rankNo, fileNo) = board(rankNo, fileNo) & "N"
                             Case 4
-                                board(rankNo, fileNo) = board(rankNo, fileNo) & "M"
+                                board(rankNo, fileNo) = board(rankNo, fileNo) & "K"
                             Case 5
                                 board(rankNo, fileNo) = board(rankNo, fileNo) & "S"
                         End Select
@@ -399,7 +387,7 @@ Module CaptureTheSarrum
             Console.Write("Choose which piece to convert to: ")
             piece = Char.ToUpper(Console.ReadLine)
             
-            If piece = "S" Or piece = "M" Or piece = "N" Or piece = "E" Or piece = "G" Or piece = "R" Or piece = "K" Then
+            If piece = "S" Or piece = "N" Or piece = "E" Or piece = "G" Or piece = "R" Or piece = "K" Then
                 choiceValid = True
             End If
         Loop
