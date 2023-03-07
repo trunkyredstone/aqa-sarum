@@ -21,18 +21,14 @@ Module CaptureTheSarrum
         Dim playAgain As Char
         Dim sampleGame As Char
         Dim whoseTurn As Char
-
-        playAgain = "Y"
-
+        
         Do
             whoseTurn = "W"
-            gameOver = False
             sampleGame = GetTypeOfGame()
             InitialiseBoard(board, sampleGame)
             Do
                 DisplayBoard(board)
                 DisplayWhoseTurnItIs(whoseTurn)
-                moveIsLegal = False
                 Do
                     GetMove(startSquare, finishSquare)
                     startRank = startSquare Mod 10
@@ -71,7 +67,7 @@ Module CaptureTheSarrum
         End If
     End Sub
 
-    Function GetTypeOfGame() As Char
+    Private Function GetTypeOfGame() As Char
         Dim typeOfGame As Char
         Console.Write("Do you want to play the sample game (enter Y for Yes)? ")
         typeOfGame = Console.ReadLine
@@ -137,7 +133,7 @@ Module CaptureTheSarrum
         Return False
     End Function
 
-    Private Function CheckSarrumMoveIsLegal(board(,) As String, startRank As Integer, startFile As Integer,
+    Private Function CheckSarrumMoveIsLegal(startRank As Integer, startFile As Integer,
                                             finishRank As Integer, finishFile As Integer) As Boolean
         If Math.Abs(finishFile - startFile) <= 1 And Math.Abs(finishRank - startRank) <= 1 Then
             Return True
@@ -190,8 +186,7 @@ Module CaptureTheSarrum
         Return gisgigirMoveIsLegal
     End Function
 
-    Private Function CheckNabuMoveIsLegal(board(,) As String, startRank As Integer, startFile As Integer,
-                                          finishRank As Integer,
+    Private Function CheckNabuMoveIsLegal(startRank As Integer, startFile As Integer, finishRank As Integer,
                                           finishFile As Integer) As Boolean
         If Math.Abs(finishFile - startFile) <= 2 And Math.Abs(finishRank - startRank) <= 2 Then
             Return True
@@ -199,7 +194,7 @@ Module CaptureTheSarrum
         Return False
     End Function
 
-    Private Function CheckMarzazPaniMoveIsLegal(board(,) As String, startRank As Integer, startFile As Integer,
+    Private Function CheckMarzazPaniMoveIsLegal(startRank As Integer, startFile As Integer,
                                                 finishRank As Integer, finishFile As Integer) As Boolean
         If _
             Math.Abs(finishFile - startFile) = 1 And Math.Abs(finishRank - startRank) = 0 Or
@@ -209,7 +204,7 @@ Module CaptureTheSarrum
         Return False
     End Function
 
-    Private Function CheckEtluMoveIsLegal(board(,) As String, startRank As Integer, startFile As Integer,
+    Private Function CheckEtluMoveIsLegal(startRank As Integer, startFile As Integer,
                                           finishRank As Integer,
                                           finishFile As Integer) As Boolean
         If _
@@ -301,15 +296,15 @@ Module CaptureTheSarrum
             Case "R"
                 Return CheckRedumMoveIsLegal(board, startRank, startFile, finishRank, finishFile, pieceColour)
             Case "S"
-                Return CheckSarrumMoveIsLegal(board, startRank, startFile, finishRank, finishFile)
+                Return CheckSarrumMoveIsLegal(startRank, startFile, finishRank, finishFile)
             Case "M"
-                Return CheckMarzazPaniMoveIsLegal(board, startRank, startFile, finishRank, finishFile)
+                Return CheckMarzazPaniMoveIsLegal(startRank, startFile, finishRank, finishFile)
             Case "G"
                 Return CheckGisgigirMoveIsLegal(board, startRank, startFile, finishRank, finishFile)
             Case "N"
-                Return CheckNabuMoveIsLegal(board, startRank, startFile, finishRank, finishFile)
+                Return CheckNabuMoveIsLegal(startRank, startFile, finishRank, finishFile)
             Case "E"
-                Return CheckEtluMoveIsLegal(board, startRank, startFile, finishRank, finishFile)
+                Return CheckEtluMoveIsLegal(startRank, startFile, finishRank, finishFile)
             Case "K"
                 Return CheckKashaptuMoveIsLegal(board, startRank, startFile, finishRank, finishFile, pieceColour)
             Case Else
