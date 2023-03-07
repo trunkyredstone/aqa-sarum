@@ -18,6 +18,7 @@ Module CaptureTheSarrum
         Dim finishRank As Integer
         Dim finishFile As Integer
         Dim piecesTaken As Integer
+        Dim points As Integer
         Dim moveIsLegal As Boolean
         Dim playAgain As Char
         Dim sampleGame As Char
@@ -30,7 +31,7 @@ Module CaptureTheSarrum
             Do
                 DisplayBoard(board)
                 DisplayWhoseTurnItIs(whoseTurn)
-                Console.WriteLine($"You've taken {piecesTaken} pieces")
+                Console.WriteLine($"You've taken {piecesTaken} pieces. You have {points} points.")
                 Do
                     GetMove(startSquare, finishSquare)
                     startRank = startSquare Mod 10
@@ -45,6 +46,7 @@ Module CaptureTheSarrum
                 gameOver = CheckIfGameWillBeWon(board, finishRank, finishFile)
                 If CheckIfPieceWillBeTaken(board, finishRank, finishFile) Then
                     piecesTaken += 1
+                    points += GetPiecePoints(board, finishRank, finishFile)
                 End If
                 MakeMove(board, startRank, startFile, finishRank, finishFile, whoseTurn)
                 If gameOver Then
@@ -98,6 +100,26 @@ Module CaptureTheSarrum
     
     Private Function CheckIfPieceWillBeTaken(board(,) As String, finishRank As Integer, finishFile As Integer) As Boolean
         Return Not board(finishRank, finishFile)(1) = " "
+    End Function
+    
+    Private Function GetPiecePoints(board(,) As String, finishRank As Integer, finishFile As Integer) As Integer
+        Dim piece = board(finishRank, finishFile)(1)
+        
+        If piece = "S" Then
+            Return 1
+        ElseIf piece = "N" Then
+            Return 2
+        ElseIf piece = "E" Then
+            Return 3
+        ElseIf piece = "G" Then
+            Return 4
+        ElseIf piece = "R" Then
+            Return 5
+        ElseIf piece = "K" Then
+            Return 6
+        End If
+        
+        Return 0
     End Function
 
     Private Sub DisplayBoard(board(,) As String)
