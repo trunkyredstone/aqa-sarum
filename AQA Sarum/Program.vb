@@ -193,7 +193,7 @@ Module CaptureTheSarrum
     Private Function CheckNabuMoveIsLegal(board(,) As String, startRank As Integer, startFile As Integer,
                                           finishRank As Integer,
                                           finishFile As Integer) As Boolean
-        If Math.Abs(finishFile - startFile) = 1 And Math.Abs(finishRank - startRank) = 1 Then
+        If Math.Abs(finishFile - startFile) <= 2 And Math.Abs(finishRank - startRank) <= 2 Then
             Return True
         End If
         Return False
