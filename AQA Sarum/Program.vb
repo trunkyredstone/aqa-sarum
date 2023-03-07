@@ -213,8 +213,8 @@ Module CaptureTheSarrum
                                           finishRank As Integer,
                                           finishFile As Integer) As Boolean
         If _
-            Math.Abs(finishFile - startFile) = 2 And Math.Abs(finishRank - startRank) = 0 Or
-            Math.Abs(finishFile - startFile) = 0 And Math.Abs(finishRank - startRank) = 2 Then
+            Math.Abs(finishFile - startFile) = 2 And Math.Abs(finishRank - startRank) = 1 Or
+            Math.Abs(finishFile - startFile) = 1 And Math.Abs(finishRank - startRank) = 2 Then
             Return True
         End If
         Return False
